@@ -182,10 +182,36 @@ public class executor {
             count++;
         return count == 1;
     }
+
+    public String compressString (String s) {
+        //String compressString;
+        /*With String object on each concatenation, a new copy of the string is created, and the two strings are copied over, character
+        by character. The first iteration requires us to copy x characters, The second iteration requires copying 2x
+        characters. The third iteration requires 3x, and so on. The total time therefore isO(x + 2x + . . . + nx).
+
+        StringBuilder can help you avoid this problem. StringBuilder simply creates a resizable array of all the strings,
+        copying them back to a string only when necessary
+       */
+        StringBuilder compressString = new StringBuilder();
+        int consecutiveCount=0;
+        for (int i=0; i<s.length(); i++) {
+            consecutiveCount++;
+            if ((i == s.length()-1) || s.charAt(i)!=s.charAt(i+1)) {  // when it reacher the last element and the element is different from the previous one
+
+                //compressString+=s.charAt(i)+""+consecutiveCount;
+                compressString.append(s.charAt(i));
+                compressString.append(consecutiveCount);
+                consecutiveCount=0;
+            }
+        }
+        return compressString.toString();
+    }
     public static void main (String [] args) {
         executor ex= new executor();
         String input="Geeks";
         //System.out.println(ex.isPolidromepermutated("car racet"));
-        System.out.println(ex.isOneEditAway("pale","bae"));
+        //System.out.println(ex.isOneEditAway("pale","bae"));
+        String exp="aabcccccaaab";
+        ex.compressString(exp);
     }
 }
